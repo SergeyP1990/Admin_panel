@@ -3,19 +3,15 @@ version: '3.6'
 services:
     django:
         build: ./django_docker
-        command: gunicorn config.wsgi:application application --bind 0.0.0.0:8000
         volumes:
             - ./django_docker/:/opt/
             - static_volume:/opt/staticfiles
-        expose:
-            - 8000
         env_file:
             - ./.env_django
 
     db:
         image: postgres:13
         volumes:
-            # здесь вместо ps_db надо указать путь до базы данных с фильмами
             - ./ps_db:/var/lib/postgresql/data
         expose:
             - 5432
